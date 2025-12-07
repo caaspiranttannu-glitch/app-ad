@@ -1,211 +1,131 @@
 <!doctype html>
-<html lang="en">
+<html lang="hi">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Love Jann ❤️</title>
-  <meta name="description" content="A sweet little single-file site: Love Jann" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <title>Simple To-Do App</title>
   <style>
-    :root{
-      --bg:#0f1022;
-      --card:#111225;
-      --accent:#ff6b9a;
-      --accent2:#ff9ab8;
-      --muted:#bfc3d6;
-    }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Poppins,system-ui,Segoe UI,Roboto,Helvetica,Arial;color:var(--muted);background:radial-gradient(circle at 10% 10%, rgba(255,107,154,0.06), transparent 10%), linear-gradient(180deg,#0b0c16 0%, #0f1022 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
-    .card{width:100%;max-width:920px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:20px;padding:36px;box-shadow:0 10px 30px rgba(8,9,20,0.6);position:relative;overflow:hidden;border:1px solid rgba(255,255,255,0.03)}
-
-    header{display:flex;align-items:center;gap:18px}
-    .logo{width:74px;height:74px;border-radius:18px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(255,107,154,0.16);flex-shrink:0}
-    .logo svg{transform:translateY(-2px)}
-    h1{margin:0;font-size:28px;color:#fff;letter-spacing:0.2px}
-    p.lead{margin:6px 0 0;color:var(--muted);font-size:14px}
-
-    .grid{display:grid;grid-template-columns:1fr 360px;gap:22px;margin-top:28px}
-    .left{padding:18px}
-    .right{background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);padding:18px;border-radius:14px;border:1px solid rgba(255,255,255,0.02)}
-
-    .message{background:linear-gradient(90deg, rgba(255,107,154,0.06), rgba(255,154,184,0.02));padding:18px;border-radius:12px;border:1px dashed rgba(255,107,154,0.08)}
-    .message h2{margin:0 0 8px;color:#fff}
-    .message p{margin:0;color:var(--muted)}
-
-    .big-heart{display:flex;align-items:center;gap:12px;margin-top:20px}
-    .heart{width:120px;height:120px;border-radius:20px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;box-shadow:0 18px 40px rgba(255,107,154,0.14);}
-    .heart svg{width:78px;height:78px;filter:drop-shadow(0 6px 18px rgba(255,107,154,0.12))}
-
-    .btn{display:inline-block;padding:12px 18px;border-radius:10px;background:linear-gradient(90deg,#ff5a86,#ff8db3);color:white;text-decoration:none;font-weight:600;cursor:pointer;border:none}
-    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
-
-    .actions{display:flex;gap:12px;margin-top:16px}
-
-    .notes{margin-top:18px;font-size:13px;color:var(--muted)}
-
-    /* typing */
-    .typing{color:var(--accent);font-weight:700}
-
-    /* confetti canvas */
-    #confetti{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none}
-
-    /* responsive */
-    @media (max-width:880px){
-      .grid{grid-template-columns:1fr;}
-      .right{order:2}
-    }
-
-    /* floating hearts */
-    .floating{position:absolute;opacity:0.12;filter:blur(6px)}
-    .f1{right:-40px;top:-30px;width:260px;height:260px}
-    .f2{left:-60px;bottom:-20px;width:200px;height:200px}
-
-    footer{margin-top:18px;font-size:13px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+    :root{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial; --bg:#f6f8fb; --card:#ffffff; --accent:#2b6ef6;}
+    body{margin:0;background:var(--bg);display:flex;align-items:center;justify-content:center;height:100vh;padding:20px;}
+    .card{width:100%;max-width:520px;background:var(--card);border-radius:12px;box-shadow:0 6px 24px rgba(20,30,60,0.08);padding:22px;}
+    h1{margin:0 0 8px;font-size:20px;}
+    p.small{margin:0 0 16px;color:#556;}
+    .row{display:flex;gap:8px;margin-bottom:12px;}
+    input[type=text]{flex:1;padding:10px 12px;border-radius:8px;border:1px solid #e3e7ef;font-size:14px;}
+    button{background:var(--accent);color:#fff;padding:10px 12px;border:none;border-radius:8px;cursor:pointer;font-weight:600}
+    ul{list-style:none;padding:0;margin:0;}
+    li{display:flex;align-items:center;justify-content:space-between;padding:10px;border-radius:8px;border:1px solid #eef2fb;margin-bottom:8px;}
+    .left{display:flex;gap:10px;align-items:center;}
+    .todo-text{max-width:380px;word-break:break-word;}
+    .done{text-decoration:line-through;color:#999}
+    .small-btn{background:transparent;border:none;color:#888;cursor:pointer;font-size:14px;padding:6px;border-radius:6px}
+    .filters{display:flex;gap:8px;margin-top:12px;}
+    .chip{padding:6px 10px;border-radius:20px;border:1px solid #e6eaf8;cursor:pointer}
+    .chip.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .count{color:#556;font-size:13px;margin-top:10px}
   </style>
 </head>
 <body>
   <div class="card">
-    <canvas id="confetti"></canvas>
-    <svg class="floating f1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path fill="#ff6b9a" d="M32 58s-22-13.8-22-30A12 12 0 0 1 22 16c6 0 10 6 10 6s4-6 10-6a12 12 0 0 1 12 12c0 16.2-22 30-22 30z"/></svg>
-    <svg class="floating f2" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path fill="#ff9ab8" d="M32 54s-18-11.3-18-25A9 9 0 0 1 25 20c5 0 8 4 8 4s3-4 8-4a9 9 0 0 1 11 9c0 13.7-18 25-18 25z"/></svg>
+    <h1>Mera To-Do App</h1>
+    <p class="small">Naya task add karein, complete par click karein, ya delete karein. Data aapke browser mein save hota hai.</p>
 
-    <header>
-      <div class="logo" aria-hidden>
-        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 21s-7-4.7-9.1-8.1C0.5 9.8 3 4 8 4c2.6 0 3.5 1.7 4 2 .5-.3 1.4-2 4-2 5 0 7.5 5.8 5.1 8.9C19 16.3 12 21 12 21z" fill="#fff" opacity="0.95"/></svg>
-      </div>
-      <div>
-        <h1>Love Jann ❤️</h1>
-        <p class="lead">A tiny, sweet single-page site made with love — for Jann.</p>
-      </div>
-    </header>
-
-    <div class="grid">
-      <div class="left">
-        <div class="message">
-          <h2>Hello, Jann</h2>
-          <p>Whenever you open this page, remember: someone out there is thinking of you. Click the heart and let the confetti (and love) fly.</p>
-        </div>
-
-        <div class="big-heart">
-          <div class="heart" id="heartBtn" title="Click to send love">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 21s-7-4.7-9.1-8.1C0.5 9.8 3 4 8 4c2.6 0 3.5 1.7 4 2 .5-.3 1.4-2 4-2 5 0 7.5 5.8 5.1 8.9C19 16.3 12 21 12 21z" fill="#fff"/></svg>
-          </div>
-          <div>
-            <div style="font-size:20px;color:#fff;font-weight:700">Love you, Jann</div>
-            <div class="typing" id="typing">...sending hugs</div>
-            <div class="actions">
-              <button class="btn" id="sendBtn">Send Love</button>
-              <button class="btn secondary" id="toggleMsg">Change Message</button>
-            </div>
-            <div class="notes">Tip: open this on your phone and tap the heart for full effect.</div>
-          </div>
-        </div>
-
-        <footer>
-          <div>&copy; <span id="year"></span> Made with ❤️</div>
-          <div><a class="btn secondary" id="shareBtn">Copy Share Text</a></div>
-        </footer>
-      </div>
-
-      <aside class="right">
-        <h3 style="margin-top:0;color:#fff">Customize</h3>
-        <label style="display:block;margin-bottom:8px;font-size:13px;color:var(--muted)">Message to Jann</label>
-        <textarea id="customMsg" rows="4" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:var(--muted)">You are loved, Jann. Always.</textarea>
-        <div style="margin-top:12px;display:flex;gap:8px">
-          <button class="btn" id="applyMsg">Apply</button>
-          <button class="btn secondary" id="resetMsg">Reset</button>
-        </div>
-
-        <hr style="margin:16px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)" />
-        <div style="font-size:13px;color:var(--muted)">
-          Want to change colors or fonts? Open the HTML and edit the <code>--accent</code> variables in the style block.
-        </div>
-      </aside>
+    <div class="row">
+      <input id="newTask" type="text" placeholder="Naya task likhiye (e.g. Groceries lene hain)" />
+      <button id="addBtn">Add</button>
     </div>
+
+    <ul id="list"></ul>
+
+    <div class="filters">
+      <button class="chip active" data-filter="all">All</button>
+      <button class="chip" data-filter="active">Active</button>
+      <button class="chip" data-filter="done">Done</button>
+      <button class="chip" id="clearDone" style="margin-left:auto">Clear Done</button>
+    </div>
+
+    <div class="count" id="count"></div>
   </div>
 
   <script>
-    // small utilities
-    const yearEl = document.getElementById('year');
-    yearEl.textContent = new Date().getFullYear();
+    const STORAGE_KEY = 'my-simple-todos-v1';
+    let todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    let filter = 'all';
 
-    const typing = document.getElementById('typing');
-    let typingTexts = ['...sending hugs','...thinking of you','...💌 delivered'];
-    let ti = 0; let ch = 0; let forward = true;
-    setInterval(()=>{
-      const txt = typingTexts[ti];
-      if(forward){ ch++; if(ch>txt.length){forward=false; setTimeout(()=>{},700);} }
-      else { ch--; if(ch===0){forward=true; ti=(ti+1)%typingTexts.length} }
-      typing.textContent = txt.slice(0,ch);
-    },120)
+    const el = {
+      list: document.getElementById('list'),
+      newTask: document.getElementById('newTask'),
+      addBtn: document.getElementById('addBtn'),
+      chips: document.querySelectorAll('.chip'),
+      count: document.getElementById('count'),
+      clearDone: document.getElementById('clearDone')
+    };
 
-    // message apply/reset
-    const customMsg = document.getElementById('customMsg');
-    const applyBtn = document.getElementById('applyMsg');
-    const resetBtn = document.getElementById('resetMsg');
-    const messageTitle = document.querySelector('.message h2');
-    const messageBody = document.querySelector('.message p');
+    function save(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(todos)); }
+    function render(){
+      el.list.innerHTML = '';
+      let shown = todos.filter(t => filter === 'all' ? true : (filter === 'active' ? !t.done : t.done));
+      shown.forEach(todo => {
+        const li = document.createElement('li');
+        const left = document.createElement('div'); left.className='left';
+        const checkbox = document.createElement('input'); checkbox.type='checkbox'; checkbox.checked = todo.done;
+        checkbox.addEventListener('change', ()=>{ toggleDone(todo.id); });
+        const span = document.createElement('div'); span.className = 'todo-text' + (todo.done ? ' done' : ''); span.textContent = todo.text;
+        left.appendChild(checkbox); left.appendChild(span);
 
-    let original = {title: 'Hello, Jann', body: 'Whenever you open this page, remember: someone out there is thinking of you. Click the heart and let the confetti (and love) fly.'}
+        const right = document.createElement('div');
+        const del = document.createElement('button'); del.className='small-btn'; del.textContent='Delete';
+        del.addEventListener('click', ()=>{ deleteTodo(todo.id); });
 
-    applyBtn.addEventListener('click', ()=>{
-      const lines = customMsg.value.split('\n');
-      messageTitle.textContent = lines[0] || 'Hello, Jann';
-      messageBody.textContent = lines.slice(1).join(' ') || '';
-    })
-    resetBtn.addEventListener('click', ()=>{
-      customMsg.value = original.title + '\n' + original.body;
-      messageTitle.textContent = original.title;
-      messageBody.textContent = original.body;
-    })
+        right.appendChild(del);
+        li.appendChild(left); li.appendChild(right);
 
-    // share / copy
-    const shareBtn = document.getElementById('shareBtn');
-    shareBtn.addEventListener('click', async ()=>{
-      const text = `Love Jann ❤️\n\n"${messageTitle.textContent} - ${messageBody.textContent}"\n\nOpen the page I made for you: (paste your shared link here)`;
-      try{ await navigator.clipboard.writeText(text); shareBtn.textContent='Copied!'; setTimeout(()=>shareBtn.textContent='Copy Share Text',1500)}catch(e){ alert('Copy failed — copy this text instead:\n\n'+text)}
-    })
+        el.list.appendChild(li);
+      });
 
-    // interactive heart + confetti
-    const heartBtn = document.getElementById('heartBtn');
-    const sendBtn = document.getElementById('sendBtn');
-    function pulse(el){ el.animate([{transform:'scale(1)'},{transform:'scale(1.08)'},{transform:'scale(1)'}],{duration:480,iterations:1,easing:'ease-out'}) }
-
-    heartBtn.addEventListener('click', ()=>{pulse(heartBtn); launchConfetti(80)});
-    sendBtn.addEventListener('click', ()=>{pulse(heartBtn); launchConfetti(120)})
-
-    // simple confetti implementation
-    const canvas = document.getElementById('confetti');
-    const ctx = canvas.getContext('2d');
-    let W, H; function resize(){ W=canvas.width = canvas.clientWidth; H=canvas.height = canvas.clientHeight;} window.addEventListener('resize', resize); resize();
-
-    function rand(a,b){return Math.random()*(b-a)+a}
-    function launchConfetti(count){
-      const pieces = [];
-      for(let i=0;i<count;i++){
-        pieces.push({x:rand(0,W), y:rand(-40, H/2), vx:rand(-2,2), vy:rand(1,4), r:rand(6,12), rot:rand(0,Math.PI*2), vr:rand(-0.1,0.1), color: `hsl(${rand(330,350)}, 90%, ${rand(55,70)}%)`})
-      }
-      let t=0;
-      function frame(){
-        t++; ctx.clearRect(0,0,W,H);
-        for(let p of pieces){
-          p.x += p.vx; p.y += p.vy; p.rot += p.vr; p.vy += 0.02; // gravity
-          ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot);
-          ctx.fillStyle = p.color; ctx.fillRect(-p.r/2, -p.r/2, p.r, p.r*0.6);
-          ctx.restore();
-        }
-        // remove off-screen
-        for(let i=pieces.length-1;i>=0;i--) if(pieces[i].y>H+50) pieces.splice(i,1);
-        if(pieces.length>0 && t<600) requestAnimationFrame(frame);
-      }
-      frame();
+      const activeCount = todos.filter(t => !t.done).length;
+      el.count.textContent = `${activeCount} task(s) pending • total ${todos.length}`;
     }
 
-    // small animation on load
-    setTimeout(()=>{ document.querySelector('.card').animate([{transform:'translateY(6px)'},{transform:'translateY(0)'}],{duration:700,easing:'cubic-bezier(.2,.9,.3,1)'}); },300)
+    function addTodo(text){
+      if(!text || !text.trim()) return;
+      todos.unshift({ id: Date.now()+Math.random(), text:text.trim(), done:false });
+      save(); render();
+      el.newTask.value = '';
+      el.newTask.focus();
+    }
 
-    // initialize
-    resetBtn.click();
+    function deleteTodo(id){
+      todos = todos.filter(t=>t.id !== id);
+      save(); render();
+    }
+
+    function toggleDone(id){
+      todos = todos.map(t => t.id === id ? {...t, done: !t.done} : t);
+      save(); render();
+    }
+
+    function clearDone(){
+      todos = todos.filter(t => !t.done);
+      save(); render();
+    }
+
+    el.addBtn.addEventListener('click', ()=> addTodo(el.newTask.value));
+    el.newTask.addEventListener('keydown', (e)=> { if(e.key === 'Enter') addTodo(el.newTask.value); });
+
+    el.chips.forEach(c => c.addEventListener('click', (ev)=>{
+      el.chips.forEach(x=>x.classList.remove('active'));
+      ev.currentTarget.classList.add('active');
+      filter = ev.currentTarget.dataset.filter;
+      render();
+    }));
+
+    el.clearDone.addEventListener('click', ()=> {
+      if(confirm('Kya aap sach mein saare completed tasks delete karna chahte hain?')) clearDone();
+    });
+
+    // initial render
+    render();
   </script>
 </body>
 </html>
